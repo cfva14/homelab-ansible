@@ -1,0 +1,14 @@
+- name: Check sudo access
+  hosts: servers
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Check effective user
+      ansible.builtin.command: whoami
+      register: whoami_result
+      changed_when: false
+
+    - name: Show effective user
+      ansible.builtin.debug:
+        var: whoami_result.stdout
